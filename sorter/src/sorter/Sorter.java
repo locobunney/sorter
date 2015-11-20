@@ -19,10 +19,19 @@ public class Sorter {
      */
     public static void main(String[] args) {
         List<Integer> numbers = new ArrayList<Integer>();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("enter numbers 1-50");
         System.out.println("enter a number outside of 1-50 to end the input");
         collectNumbers(numbers);
-        selectionSort(numbers);
+        System.out.println("enter 1 if you want selection sort and enter 2 for insertion sort");
+        int choice = scanner.nextInt();
+        if (choice == 1){
+            selectionSort(numbers);
+        }
+        else if (choice == 2){
+            insertionSort(numbers);
+        }
+        
     }
     public static void collectNumbers(List<Integer> numbers){
         Scanner scanner =new Scanner(System.in);
@@ -43,43 +52,36 @@ public class Sorter {
             System.out.print(counter + "\n");
         }
     }
-    /*public static void selectionSort (List<Integer> numbers){
-        int i, j, first, temp;  
-        for (i=numbers.size()-1;i>0;i--) {
-            first = 0;   //initialize to subscript of first element
-            for(j = 1; j <= i; j ++){   //locate smallest element between positions 1 and i.
-               if(numbers.get(j) < numbers.get(first))         
-                 first = j;
-            }
-            temp = numbers.get(first);   //swap smallest found with element in position i.
-            numbers.set(first,i);
-            numbers.set(i, temp);
-        }
-        for (Integer q:numbers){
-            System.out.println(numbers.get(q));
-        }
-    }  */
     public static void selectionSort(List<Integer> numbers){
-    int smallestIndex;
-    int smallest;
-        for (int curIndex = 0; curIndex < numbers.size(); curIndex++) {
-            smallest = numbers.get(curIndex);
-            smallestIndex = curIndex;
-                for (int i = curIndex + 1; i < numbers.size(); i++) {
+        int smallestindex;
+        int smallest;
+        for (int currentindex = 0; currentindex < numbers.size(); currentindex++) {
+            smallest = numbers.get(currentindex);
+            smallestindex = currentindex;
+                for (int i = currentindex + 1; i < numbers.size(); i++) {
                     if (smallest > numbers.get(i)) {
                         smallest = numbers.get(i);
-                        smallestIndex = i;
+                        smallestindex = i;
                     }
                 }
-                if (smallestIndex != curIndex){
-                    int temp = numbers.get(curIndex);
-                    numbers.set(curIndex, numbers.get(smallestIndex));
-                    numbers.set(smallestIndex, temp);
+                if (smallestindex != currentindex){
+                    int temp = numbers.get(currentindex);
+                    numbers.set(currentindex, numbers.get(smallestindex));
+                    numbers.set(smallestindex, temp);
                 }
         }
-        for (int q = 0; q < numbers.size();q++){
-            System.out.println(numbers.get(q));
-        }
+        System.out.println(numbers);
     }
-    
+    public static void insertionSort(List<Integer> numbers){
+        int temp;
+        for (int ctr = 1; ctr < numbers.size();ctr++){
+            for (int y=ctr; y>0 && numbers.get(y) < numbers.get(y-1); y--){
+                temp = numbers.get(y-1);
+                numbers.set(y-1, numbers.get(y));
+                numbers.set(y, temp);
+                System.out.println(numbers);
+            }
+        }
+        System.out.println(numbers);
+    }
 }
